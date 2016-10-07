@@ -9,6 +9,7 @@
 #define MAXLINE 4096
 #define FILE_MODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IXOTH)
 
+void err_dump(const char *, ...) __attribute__((noreturn));
 void err_quit(const char *, ...) __attribute__((noreturn));
 void err_sys(const char *, ...) __attribute__((noreturn));
 void err_ret(const char *, ...);
