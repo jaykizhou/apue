@@ -1,2 +1,2 @@
 # apue
-source code by myself in reading apue
+source code coding by myself in reading apue
