@@ -1,6 +1,7 @@
 #include "apue.h"
 #include <errno.h>
 #include <stdarg.h>
+#include <sys/wait.h>
 
 static void err_doit(int, int, const char *, va_list);
 
@@ -52,3 +53,18 @@ err_doit(int errnoflag, int error, const char *fmt, va_list ap) {
     fputs(buf, stderr);
     fflush(NULL);
 }
+
+void pr_exit(int status) {
+    if(WIFEXITED(status)) {
+        printf("normal termination, exit status=%d\n", WEXITSTATUS(status));
+    } else if(WIFSIGNALED(status)) {
+        printf("abnormal termination, signal number = %d%s\n", WTERMSIG(status),
+#ifdef WCOREDUMP
+                WCOREDUMP(status) ? "(core file generated)" : "");
+#else
+                "");
+#endif
+    } else if(WIFSTOPPED(status)) {
+        printf("child stopped, signal number = %d\n", WSTOPSIG(status));
+    }
+}    
